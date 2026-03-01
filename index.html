@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProfEPT – IF Goiano Campus Ceres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================
+       VARIÁVEIS E RESET
+    ================================================ */
+    :root {
+      --verde-escuro:  #1a4731;
+      --verde-medio:   #2d7a50;
+      --verde-claro:   #4caf7d;
+      --verde-suave:   #e8f5ee;
+      --neutro-escuro: #1e1e1e;
+      --neutro-medio:  #4a4a4a;
+      --neutro-claro:  #f5f5f3;
+      --branco:        #ffffff;
+      --sombra:        rgba(26,71,49,.12);
+      --radius:        12px;
+      --transition:    .35s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--neutro-escuro);
+      background: var(--branco);
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ================================================
+       NAVEGAÇÃO FIXA
+    ================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(45,122,80,.15);
+      transition: box-shadow var(--transition);
+    }
+    nav.scrolled { box-shadow: 0 4px 24px var(--sombra); }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: .85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    /* logos na nav */
+    .nav-logos {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-logos img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+    .nav-sep {
+      width: 1px;
+      height: 36px;
+      background: var(--verde-claro);
+      opacity: .5;
+    }
+
+    /* links */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: .25rem;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      letter-spacing: .02em;
+      padding: .45rem .85rem;
+      border-radius: 6px;
+      color: var(--verde-escuro);
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-links a:hover {
+      background: var(--verde-suave);
+      color: var(--verde-medio);
+    }
+
+    /* hambúrguer */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--verde-escuro);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      padding: 0 2rem 1rem;
+      background: var(--branco);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: .95rem;
+      font-weight: 500;
+      padding: .75rem .5rem;
+      color: var(--verde-escuro);
+      border-bottom: 1px solid var(--verde-suave);
+    }
+
+    /* ================================================
+       HERO
+    ================================================ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--verde-escuro) 0%, #0e3320 50%, #071a12 100%);
+    }
+
+    /* fundo decorativo */
+    .hero-bg-circles {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .hero-bg-circles::before,
+    .hero-bg-circles::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(76,175,125,.08);
+    }
+    .hero-bg-circles::before {
+      width: 600px; height: 600px;
+      top: -160px; right: -160px;
+    }
+    .hero-bg-circles::after {
+      width: 400px; height: 400px;
+      bottom: -120px; left: -80px;
+      background: rgba(45,122,80,.1);
+    }
+
+    /* grade decorativa */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(76,175,125,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(76,175,125,.06) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(76,175,125,.18);
+      border: 1px solid rgba(76,175,125,.4);
+      border-radius: 100px;
+      padding: .35rem 1rem;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--verde-claro);
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--verde-claro);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .4; transform: scale(1.5); }
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--branco);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--verde-claro);
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,.72);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: var(--verde-claro);
+      color: var(--verde-escuro);
+      font-weight: 600;
+      font-size: .95rem;
+      padding: .9rem 2rem;
+      border-radius: 8px;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 4px 20px rgba(76,175,125,.35);
+    }
+    .hero-cta:hover {
+      background: var(--branco);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(76,175,125,.45);
+    }
+    .hero-cta svg { flex-shrink: 0; }
+
+    /* card decorativo lado direito */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      animation: floatUp .9s ease both .2s;
+    }
+    @keyframes floatUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-stat-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .hero-stat-card .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--verde-claro);
+      line-height: 1;
+    }
+    .hero-stat-card .stat-label {
+      font-size: .85rem;
+      color: rgba(255,255,255,.65);
+      margin-top: .35rem;
+      line-height: 1.4;
+    }
+    .hero-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .hero-logos-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .hero-logos-card img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: .9;
+    }
+    .hero-logos-card .v-sep {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,.25);
+    }
+
+    /* ================================================
+       SEÇÕES COMUNS
+    ================================================ */
+    section { padding: 5rem 2rem; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--verde-medio);
+      margin-bottom: .9rem;
+    }
+    .section-label::before {
+      content: '— ';
+      opacity: .5;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--verde-escuro);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-text {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--neutro-medio);
+    }
+
+    /* divisor decorativo */
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--verde-claro), transparent);
+      border-radius: 3px;
+      margin-bottom: 2rem;
+    }
+
+    /* ================================================
+       SOBRE – FUNDO BRANCO
+    ================================================ */
+    #sobre {
+      background: var(--branco);
+    }
+    #sobre .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .sobre-visual {
+      position: relative;
+    }
+    .sobre-visual-block {
+      background: var(--verde-suave);
+      border-radius: 16px;
+      padding: 3rem;
+      border-left: 4px solid var(--verde-claro);
+    }
+    .sobre-visual-block blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--verde-escuro);
+      line-height: 1.6;
+    }
+    .sobre-visual-block cite {
+      display: block;
+      margin-top: 1.25rem;
+      font-size: .85rem;
+      font-style: normal;
+      color: var(--verde-medio);
+      font-weight: 500;
+    }
+    .sobre-deco {
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--verde-claro), var(--verde-medio));
+      opacity: .12;
+      bottom: -32px; right: -32px;
+      z-index: -1;
+    }
+
+    /* ================================================
+       INTRODUÇÃO – FUNDO VERDE SUAVE
+    ================================================ */
+    #introducao {
+      background: var(--verde-suave);
+      position: relative;
+      overflow: hidden;
+    }
+    #introducao::before {
+      content: '"';
+      position: absolute;
+      top: -2rem; left: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 20rem;
+      color: var(--verde-claro);
+      opacity: .07;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    #introducao .section-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .intro-highlight {
+      background: var(--branco);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 4px 24px var(--sombra);
+    }
+    .intro-highlight h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--verde-escuro);
+      margin-bottom: 1rem;
+    }
+    .intro-highlight p {
+      font-size: .95rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--neutro-medio);
+    }
+
+    /* ================================================
+       OBJETIVOS
+    ================================================ */
+    #objetivos {
+      background: var(--neutro-claro);
+    }
+    .objetivos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .objetivo-card {
+      background: var(--branco);
+      border-radius: var(--radius);
+      padding: 2rem;
+      border-top: 3px solid var(--verde-claro);
+      box-shadow: 0 2px 16px var(--sombra);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .objetivo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px var(--sombra);
+    }
+    .objetivo-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      background: var(--verde-suave);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .objetivo-icon svg { width: 24px; height: 24px; color: var(--verde-medio); }
+    .objetivo-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--verde-escuro);
+      margin-bottom: .75rem;
+      line-height: 1.3;
+    }
+    .objetivo-card p {
+      font-size: .9rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--neutro-medio);
+    }
+
+    /* ================================================
+       CAMPUS CERES
+    ================================================ */
+    #campus {
+      background: linear-gradient(135deg, var(--verde-escuro) 0%, #0e3320 100%);
+      color: var(--branco);
+      position: relative;
+      overflow: hidden;
+    }
+    #campus::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: rgba(76,175,125,.07);
+      bottom: -150px; right: -100px;
+      pointer-events: none;
+    }
+    #campus .section-label { color: var(--verde-claro); }
+    #campus .section-title { color: var(--branco); }
+    #campus .divider { background: linear-gradient(90deg, var(--verde-claro), transparent); }
+
+    #campus .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .campus-text { position: relative; z-index: 1; }
+    .campus-text .section-text { color: rgba(255,255,255,.78); }
+
+    .campus-info-cards {
+      position: relative; z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .campus-info-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .campus-info-card svg {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      color: var(--verde-claro);
+      margin-top: .1rem;
+    }
+    .campus-info-card div {
+      font-size: .9rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,.8);
+    }
+    .campus-info-card strong {
+      display: block;
+      color: var(--branco);
+      font-weight: 500;
+      margin-bottom: .2rem;
+    }
+
+    /* ================================================
+       RODAPÉ
+    ================================================ */
+    footer {
+      background: var(--neutro-escuro);
+      color: rgba(255,255,255,.6);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--branco);
+      font-size: 1.1rem;
+      margin-bottom: .5rem;
+    }
+    .footer-brand p {
+      font-size: .85rem;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--verde-claro);
+      margin-bottom: .85rem;
+    }
+    .footer-col p {
+      font-size: .85rem;
+      line-height: 1.7;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: .82rem;
+    }
+    .footer-bottom a {
+      color: var(--verde-claro);
+      transition: opacity .2s;
+    }
+    .footer-bottom a:hover { opacity: .8; }
+
+    /* ================================================
+       ANIMAÇÕES DE ENTRADA (IntersectionObserver)
+    ================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================================================
+       RESPONSIVO
+    ================================================ */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding-top: 6rem;
+      }
+      .hero-visual { display: none; }
+
+      #sobre .section-inner,
+      #introducao .section-inner,
+      #campus .section-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      section { padding: 4rem 1.25rem; }
+      .nav-inner { padding: .75rem 1.25rem; }
+      .hero-title { font-size: 1.85rem; }
+      .objetivos-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================
+       NAVEGAÇÃO
+  ================================================ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <!-- logos -->
+      <div class="nav-logos">
+        <!-- Logo ProfEPT -->
+        <img
+          src="https://profept.ifes.edu.br/images/ProfEPT/logo_profept.png"
+          alt="Logo ProfEPT"
+          onerror="this.style.display='none'"
+        />
+        <div class="nav-sep"></div>
+        <!-- Logo IF Goiano -->
+        <img
+          src="https://www.ifgoiano.edu.br/home/images/logo_2020.png"
+          alt="Logo IF Goiano"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+      <!-- links desktop -->
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#introducao">Introdução</a></li>
+        <li><a href="#objetivos">Objetivos</a></li>
+        <li><a href="#campus">Campus Ceres</a></li>
+      </ul>
+
+      <!-- hambúrguer mobile -->
+      <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- menu mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#sobre"      onclick="closeMobileMenu()">Sobre</a>
+      <a href="#introducao" onclick="closeMobileMenu()">Introdução</a>
+      <a href="#objetivos"  onclick="closeMobileMenu()">Objetivos</a>
+      <a href="#campus"     onclick="closeMobileMenu()">Campus Ceres</a>
+    </div>
+  </nav>
+
+  <!-- ================================================
+       HERO
+  ================================================ -->
+  <section id="hero">
+    <div class="hero-bg-circles"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-inner">
+      <!-- conteúdo textual -->
+      <div class="hero-content">
+        <div class="hero-badge">Mestrado Profissional em Rede Nacional</div>
+
+        <h1 class="hero-title">
+          Programa de Pós-Graduação em<br />
+          <em>Educação Profissional<br />e Tecnológica</em>
+        </h1>
+
+        <p class="hero-subtitle">
+          O ProfEPT é um mestrado profissional em rede, ofertado em parceria com
+          Institutos Federais de todo o Brasil, comprometido com a formação
+          de pesquisadores e educadores que transformam a realidade social.
+        </p>
+
+        <a href="#sobre" class="hero-cta">
+          Saiba Mais
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+
+      <!-- visual decorativo -->
+      <div class="hero-visual">
+        <!-- logos centralizadas -->
+        <div class="hero-logos-card">
+          <img
+            src="https://profept.ifes.edu.br/images/ProfEPT/logo_profept.png"
+            alt="ProfEPT"
+            onerror="this.style.display='none'"
+          />
+          <div class="v-sep"></div>
+          <img
+            src="https://www.ifgoiano.edu.br/home/images/logo_2020.png"
+            alt="IF Goiano"
+            onerror="this.style.display='none'"
+          />
+        </div>
+
+        <!-- estatísticas -->
+        <div class="hero-stats-row">
+          <div class="hero-stat-card">
+            <div class="stat-number">+50</div>
+            <div class="stat-label">Unidades associadas em todo o Brasil</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="stat-number">2017</div>
+            <div class="stat-label">Ano de criação do programa nacional</div>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <div class="stat-number">Ceres – GO</div>
+          <div class="stat-label">IF Goiano Campus Ceres — unidade associada ao ProfEPT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SOBRE O ProfEPT
+  ================================================ -->
+  <section id="sobre">
+    <div class="section-inner reveal">
+      <!-- texto -->
+      <div>
+        <span class="section-label">Sobre o Programa</span>
+        <h2 class="section-title">O que é o ProfEPT?</h2>
+        <div class="divider"></div>
+        <p class="section-text">
+          O Programa de Pós-Graduação em Educação Profissional e Tecnológica (ProfEPT) é um
+          mestrado profissional em rede nacional, coordenado pelo Instituto Federal do Espírito
+          Santo (IFES) e ofertado em associação com Institutos Federais de todas as regiões do
+          País, incluindo o IF Goiano Campus Ceres.
+        </p>
+        <br />
+        <p class="section-text">
+          Com foco na formação de mestres aptos a atuar diretamente na Educação Profissional e
+          Tecnológica (EPT), o programa articula produção científica, desenvolvimento de
+          tecnologias educacionais e reflexão crítica sobre as práticas pedagógicas que permeiam
+          a educação pública brasileira. O programa integra pesquisa e prática, incentivando a
+          produção de dissertações voltadas à aplicação concreta em contextos educacionais reais.
+        </p>
+      </div>
+
+      <!-- visual / destaque -->
+      <div class="sobre-visual">
+        <div class="sobre-visual-block">
+          <blockquote>
+            "A educação profissional e tecnológica é uma modalidade educacional que perpassa todos
+            os níveis da educação nacional, integrando-se às dimensões do trabalho, da ciência e
+            da tecnologia."
+          </blockquote>
+          <cite>— Lei de Diretrizes e Bases da Educação Nacional (LDB), Art. 39</cite>
+        </div>
+        <div class="sobre-deco"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       INTRODUÇÃO
+  ================================================ -->
+  <section id="introducao">
+    <div class="section-inner reveal">
+      <!-- texto principal -->
+      <div>
+        <span class="section-label">Contexto Educacional</span>
+        <h2 class="section-title">A Educação Profissional e Tecnológica no Brasil</h2>
+        <div class="divider"></div>
+        <p class="section-text">
+          A Educação Profissional e Tecnológica (EPT) constitui um dos pilares fundamentais para
+          o desenvolvimento econômico e social do Brasil. Ao integrar formação técnica e humanística,
+          ela prepara cidadãos para responder às demandas do mundo do trabalho sem abrir mão da
+          formação crítica e integral do ser humano.
+        </p>
+        <br />
+        <p class="section-text">
+          Historicamente marcada pela dualidade estrutural entre uma educação para as elites e outra
+          voltada para o trabalho manual, a EPT vem sendo ressignificada no contexto da rede federal
+          de educação. Os Institutos Federais, desde a sua expansão na década de 2000, assumiram o
+          protagonismo na oferta de uma educação pública, gratuita, laica e comprometida com a
+          transformação social das regiões onde se inserem.
+        </p>
+        <br />
+        <p class="section-text">
+          Nesse cenário, a pesquisa e a formação de professores voltados à EPT tornam-se estratégias
+          indispensáveis para garantir uma prática pedagógica reflexiva, inovadora e sensível às
+          especificidades locais. O ProfEPT emerge, portanto, como resposta institucional à demanda
+          por qualificação dos profissionais que atuam nessa modalidade.
+        </p>
+      </div>
+
+      <!-- card de destaque -->
+      <div>
+        <div class="intro-highlight">
+          <h3>Por que o ProfEPT importa?</h3>
+          <p>
+            O programa amplia a capacidade investigativa dos educadores, fortalece a produção de
+            conhecimento aplicado e contribui para a consolidação de uma identidade pedagógica
+            própria para a Educação Profissional e Tecnológica no Brasil, reconhecendo o trabalho
+            como princípio educativo e a pesquisa como eixo estruturante da formação docente.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       OBJETIVOS
+  ================================================ -->
+  <section id="objetivos">
+    <div class="section-inner reveal">
+      <span class="section-label">Propósitos</span>
+      <h2 class="section-title">Objetivos do Programa</h2>
+      <div class="divider"></div>
+      <p class="section-text" style="max-width:680px;">
+        O ProfEPT é estruturado em torno de objetivos que guiam tanto a produção científica
+        quanto a atuação concreta dos egressos nos espaços educacionais.
+      </p>
+
+      <div class="objetivos-grid">
+
+        <!-- card 1 -->
+        <div class="objetivo-card">
+          <div class="objetivo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12 12 0 01.84 4.422c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-1.57.45-3.034 1.22-4.27L12 14z"/>
+            </svg>
+          </div>
+          <h3>Formação de Mestres em EPT</h3>
+          <p>
+            Qualificar profissionais para atuar na pesquisa, gestão e docência na Educação
+            Profissional e Tecnológica, em seus diferentes níveis e modalidades.
+          </p>
+        </div>
+
+        <!-- card 2 -->
+        <div class="objetivo-card">
+          <div class="objetivo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+          </div>
+          <h3>Pesquisas Aplicadas</h3>
+          <p>
+            Fomentar o desenvolvimento de pesquisas com impacto direto na prática educacional,
+            produzindo tecnologias e metodologias inovadoras para a EPT.
+          </p>
+        </div>
+
+        <!-- card 3 -->
+        <div class="objetivo-card">
+          <div class="objetivo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+            </svg>
+          </div>
+          <h3>Fortalecimento da Educação Pública</h3>
+          <p>
+            Contribuir para o aprimoramento da qualidade da educação pública brasileira,
+            reafirmando o papel social dos Institutos Federais.
+          </p>
+        </div>
+
+        <!-- card 4 -->
+        <div class="objetivo-card">
+          <div class="objetivo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3>Integração Ensino, Pesquisa e Extensão</h3>
+          <p>
+            Articular as dimensões do ensino, da pesquisa e da extensão como fundamentos
+            indissociáveis da formação profissional e cidadã.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       CAMPUS CERES
+  ================================================ -->
+  <section id="campus">
+    <div class="section-inner">
+      <div class="campus-text reveal">
+        <span class="section-label">Unidade Associada</span>
+        <h2 class="section-title">IF Goiano – Campus Ceres</h2>
+        <div class="divider"></div>
+        <p class="section-text">
+          Localizado na cidade de Ceres, no Vale do São Patrício, em Goiás, o Instituto Federal
+          Goiano Campus Ceres é referência em educação pública e de qualidade na região
+          Centro-Norte do estado. Com mais de seis décadas de história, o campus oferece cursos
+          técnicos, graduações e programas de pós-graduação comprometidos com o desenvolvimento
+          regional sustentável e a inclusão social.
+        </p>
+        <br />
+        <p class="section-text">
+          Como unidade associada do ProfEPT, o Campus Ceres amplia o alcance do programa para a
+          realidade goiana, formando educadores e pesquisadores capazes de articular as demandas
+          locais com os desafios nacionais da Educação Profissional e Tecnológica, contribuindo
+          para a transformação das comunidades que o cercam.
+        </p>
+      </div>
+
+      <div class="campus-info-cards reveal">
+
+        <div class="campus-info-card">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <div>
+            <strong>Localização</strong>
+            Ceres, Goiás — Vale do São Patrício, região Centro-Norte do estado.
+          </div>
+        </div>
+
+        <div class="campus-info-card">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+          <div>
+            <strong>Atuação Regional</strong>
+            Referência histórica em educação pública, atendendo municípios do entorno com oferta
+            de ensino técnico, superior e pós-graduação.
+          </div>
+        </div>
+
+        <div class="campus-info-card">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          <div>
+            <strong>ProfEPT no Campus</strong>
+            Unidade associada responsável pela oferta local do mestrado profissional, com corpo
+            docente qualificado e infraestrutura dedicada à pesquisa.
+          </div>
+        </div>
+
+        <div class="campus-info-card">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+          </svg>
+          <div>
+            <strong>Compromisso Social</strong>
+            Integração entre ensino, pesquisa e extensão voltada ao desenvolvimento humano e
+            tecnológico da região do Vale do São Patrício.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       RODAPÉ
+  ================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>ProfEPT – IF Goiano Campus Ceres</h3>
+        <p>
+          Programa de Pós-Graduação em Educação Profissional e Tecnológica.<br />
+          Unidade associada: Instituto Federal Goiano – Campus Ceres, Goiás.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Programa</h4>
+        <p>ProfEPT — Mestrado Profissional em Educação Profissional e Tecnológica</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Instituição</h4>
+        <p>
+          IF Goiano Campus Ceres<br />
+          Ceres – Goiás – Brasil
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="ano"></span> IF Goiano Campus Ceres · ProfEPT. Todos os direitos reservados.</span>
+      <span>Desenvolvido por <strong style="color:#fff;">Lázaro Furtado</strong></span>
+    </div>
+  </footer>
+
+  <!-- ================================================
+       JAVASCRIPT
+  ================================================ -->
+  <script>
+    /* --- Ano dinâmico --- */
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    /* --- Nav shadow ao rolar --- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* --- Menu hambúrguer --- */
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    hamburger.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') hamburger.click();
+    });
+
+    function closeMobileMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
+    /* --- Animações reveal com IntersectionObserver --- */
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
